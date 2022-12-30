@@ -5,17 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--===============> All Style Link <===================-->
-  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="unnamed.png" /> 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <title>X-O Game</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />  <title>X-O Game</title>
 </head>
 <body>
   <canvas id="confeti" width="300" height="300" class="active InActive"></canvas>
 
   <section class="Game">
-    
-
     <div class="HeaderGame">
       <h1>Tic-Tac Game</h1>
       <div class="WinnerPlayer">
@@ -43,6 +40,14 @@
         <button onclick="Choice(1)">1 Player</button>
         <h1>Or</h1>
         <button onclick="Choice(2)">2 Player</button>
+      </span>
+      <span id="Difficult" class="slideUp">
+        <h1>Choose Play Difficulty</h1>
+        <button onclick="Difficult(1)">Easy</button>
+        <h1>Or</h1>
+        <button onclick="Difficult(2)">Medium</button>
+        <h1>Or</h1>
+        <button onclick="Difficult(3)">Hard </button>
       </span>
       <span id="WinPlayer" class="slideUp">
         <h1></h1>
