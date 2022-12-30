@@ -40,7 +40,8 @@ body{
 }
 .Game .bodyGame #option,
 .Game .bodyGame #LostPlayer,
-.Game .bodyGame #WinPlayer{
+.Game .bodyGame #WinPlayer,
+.Game .bodyGame #Difficult{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -54,7 +55,9 @@ body{
   border-radius: 20px;
   z-index: 900;
 }
-.Game .bodyGame #option button{
+.Game .bodyGame #option button,
+.Game .bodyGame #Difficult button
+{
   border: none;
   background: none;
   font-size: 39px;
