@@ -1,8 +1,10 @@
 let AllButton=document.querySelectorAll(".bodyGame div");
 var Player="X";
+var Difficulty=0.5;
 var canvas=document.getElementById("confeti");;
 var IsTwoPlayer=false;
 var CounterX=0,CounterO=0,CounterD=0;
+var DifficultElement=document.getElementById("Difficult");
 var TurnPlayerGame=document.getElementById("TurnPlayer1");
 var WinnerMessage=document.getElementById("WinPlayer");
 var LostMessage=document.getElementById("LostPlayer");
@@ -15,7 +17,7 @@ var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
       }else{
         TrunPlayer(ele);
         if(!IsTwoPlayer){
-          MaxMin(board,100,false);
+          MaxMin(board,Difficulty,false);
         }
         
         }
@@ -328,6 +330,8 @@ function SetNumberWin(){
 function Choice(Num){
   if(Num==1){
     IsTwoPlayer=false;
+    DifficultElement.classList.add("slideDown");
+    DifficultElement.classList.remove("slideUp")
   }else if(Num==2){
     IsTwoPlayer=true;
   }
@@ -345,6 +349,20 @@ function Choice(Num){
   TurnPlayerGame.innerHTML =Player;
 }
 /*End Choice Mode Game */
+/* Choice Game Difficult*/
+function Difficult(ele){
+  if(ele==1){
+    Difficulty=1;
+  }
+  else if(ele==2){
+    Difficulty=2;
+  }else if(ele==3){
+    Difficulty=100;
+  }
+  DifficultElement.classList.remove("slideDown");
+  DifficultElement.classList.add("slideUp");
+}
+/* End  Choice Game Difficult*/
 /*Start Shaw Mode Game*/
 function ShawModeGame(){
   Clear();
@@ -368,64 +386,64 @@ function ShawModeGame(){
 var COLORS, 
     Confetti, 
     NUM_CONFETTI, PI_2, 
-     confetti, 
+    confetti, 
     context, drawCircle, drawCircle2, drawCircle3, i, range, xpos;
- NUM_CONFETTI = 40;
- COLORS = [
-   [235, 90, 70],
-   [97, 189, 79],
-   [242, 214, 0],
-   [0, 121, 191],
-   [195, 119, 224]
- ];
+  NUM_CONFETTI = 40;
+  COLORS = [
+    [235, 90, 70],
+    [97, 189, 79],
+    [242, 214, 0],
+    [0, 121, 191],
+    [195, 119, 224]
+  ];
  PI_2 = 2 * Math.PI;
- canvas = document.getElementById("confeti");
- context = canvas.getContext("2d");
- window.w = 0;
- window.h = 0;
- window.resizeWindow = function() {
-   window.w = canvas.width = window.innerWidth;
-   return window.h = canvas.height = window.innerHeight
- };
- window.addEventListener("resize", resizeWindow, !1);
- window.onload = function() {
-   return setTimeout(resizeWindow, 0)
- };
- range = function(a, b) {
+  canvas = document.getElementById("confeti");
+  context = canvas.getContext("2d");
+  window.w = 0;
+  window.h = 0;
+  window.resizeWindow = function() {
+    window.w = canvas.width = window.innerWidth;
+    return window.h = canvas.height = window.innerHeight
+  };
+  window.addEventListener("resize", resizeWindow, !1);
+  window.onload = function() {
+    return setTimeout(resizeWindow, 0)
+  };
+  range = function(a, b) {
    return (b - a) * Math.random() + a
- };
- drawCircle = function(a, b, c, d) {
-   context.beginPath();
-   context.moveTo(a, b);
-   context.bezierCurveTo(a - 17, b + 14, a + 13, b + 5, a - 5, b + 22);
-   context.lineWidth = 2;
-   context.strokeStyle = d;
-   return context.stroke()
- };
- drawCircle2 = function(a, b, c, d) {
-   context.beginPath();
-   context.moveTo(a, b);
-   context.lineTo(a + 6, b + 9);
-   context.lineTo(a + 12, b);
-   context.lineTo(a + 6, b - 9);
-   context.closePath();
-   context.fillStyle = d;
-   return context.fill()
- };
- drawCircle3 = function(a, b, c, d) {
-   context.beginPath();
-   context.moveTo(a, b);
-   context.lineTo(a + 5, b + 5);
-   context.lineTo(a + 10, b);
-   context.lineTo(a + 5, b - 5);
-   context.closePath();
-   context.fillStyle = d;
-   return context.fill()
- };
- xpos = 0.9;
- document.onmousemove = function(a) {
-   return xpos = a.pageX / w
- };
+  };
+  drawCircle = function(a, b, c, d) {
+    context.beginPath();
+    context.moveTo(a, b);
+    context.bezierCurveTo(a - 17, b + 14, a + 13, b + 5, a - 5, b + 22);
+    context.lineWidth = 2;
+    context.strokeStyle = d;
+    return context.stroke()
+  };
+  drawCircle2 = function(a, b, c, d) {
+    context.beginPath();
+    context.moveTo(a, b);
+    context.lineTo(a + 6, b + 9);
+    context.lineTo(a + 12, b);
+    context.lineTo(a + 6, b - 9);
+    context.closePath();
+    context.fillStyle = d;
+    return context.fill()
+  };
+  drawCircle3 = function(a, b, c, d) {
+    context.beginPath();
+    context.moveTo(a, b);
+    context.lineTo(a + 5, b + 5);
+    context.lineTo(a + 10, b);
+    context.lineTo(a + 5, b - 5);
+    context.closePath();
+    context.fillStyle = d;
+    return context.fill()
+  };
+  xpos = 0.9;
+  document.onmousemove = function(a) {
+    return xpos = a.pageX / w
+  };
  window.requestAnimationFrame = function() {
    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(a) {
      return window.setTimeout(a, 5)
