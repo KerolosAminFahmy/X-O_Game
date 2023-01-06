@@ -149,36 +149,28 @@ body{
   left: 43px;
   transform: rotateZ(44deg);
 }
+.Game .bodyGame div p.WinnerM::before{
+  content: "";
+    height: 148%;
+    width: 4px;
+    background-color: blueviolet;
+    position: absolute;
+    top: -36px;
+    left: 43px;
+    transform: rotateZ(136deg);
+}
+
 .slideUp {
-  /* animation: slideUp 1s ease-in-out;
-  animation-fill-mode: forwards; */
   opacity: 0;
     transform: scale(0);
     transition: all .4s ease-in-out;
 }
 .slideDown {
-  /* animation: slideDown 1s ease-in-out;
-  animation-fill-mode: forwards; */
     opacity: 1 !important;
     transform: scale(100%);
     transition: all .4s ease-in-out; 
 }
-/* @keyframes slideUp {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-700px);
-  }
-}
-@keyframes slideDown {
-  0% {
-    transform: translateY(-700px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-} */
+
 canvas {
   position: absolute;
   left: 0;
