@@ -1,5 +1,5 @@
 let AllButton=document.querySelectorAll(".bodyGame div");
-var Player="X";
+var Player;
 var Difficulty=0.5;
 var canvas=document.getElementById("confeti");;
 var IsTwoPlayer=false;
@@ -9,8 +9,13 @@ var TurnPlayerGame=document.getElementById("TurnPlayer1");
 var WinnerMessage=document.getElementById("WinPlayer");
 var LostMessage=document.getElementById("LostPlayer");
 var optionMessage=document.getElementById("option");
+var WinnerInfo = {
+     winnerlist:[0,0,0],
+     type:'a'
+}
 var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
   AllButton.forEach(function(ele){
+    console.log(ele)
     ele.addEventListener("click",()=>{
       if(ele.firstElementChild.classList.contains("Finish")){
         alert("Please Select Empty Area");
@@ -32,8 +37,7 @@ var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
         ele.firstElementChild.style.color="darksalmon";
         ele.firstElementChild.classList.add("Finish");
         if(IsTwoPlayer){
-          Player="O";
-          TurnPlayerGame.innerHTML =Player;
+          setPlayer("O")
         }else{
           TurnPlayerGame.innerHTML ="O";
         }
@@ -43,37 +47,46 @@ var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
         ele.firstElementChild.innerHTML="O";
         ele.firstElementChild.style.color="aquamarine";
         ele.firstElementChild.classList.add("Finish");
-        Player="X"
-        TurnPlayerGame.innerHTML =Player;
+        setPlayer("X");
       }
       let result =checkWinner(board);
       setTimeout(()=>{
         if(result==2){
           canvas.classList.remove("InActive");
-          WinnerMessage.classList.add("slideDown");
-          WinnerMessage.firstElementChild.innerHTML="Player With X won!";
+          ShowMessage("Player With O won!")
           CounterX++;
-          player="X";
-          TurnPlayerGame.innerHTML =Player;
-      }else if(result==-2){
-        if(IsTwoPlayer){
-          canvas.classList.remove("InActive");
-        }
-        WinnerMessage.classList.add("slideDown");
-        WinnerMessage.firstElementChild.innerHTML="Player With O won!";
-        CounterO++;
-        player="X";
-        TurnPlayerGame.innerHTML =Player;
-      }else if(result==0){
-        WinnerMessage.classList.add("slideDown");
-        WinnerMessage.firstElementChild.innerHTML="It's Draw!";
-        CounterD++;
-        player="X";
-        TurnPlayerGame.innerHTML =Player;
+          setPlayer("X");
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
+        }else if(result==-2){
+          if(IsTwoPlayer){
+            canvas.classList.remove("InActive");
+          }
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
+          ShowMessage("Player With O won!")
+          CounterO++;
+          if(IsTwoPlayer){
+            setPlayer("O")
+          }else{
+            setPlayer("X")
+          }
+        }else if(result==0){
+          ShowMessage("It's Draw!");
+          CounterD++;
+          if(IsTwoPlayer){
+            setPlayer("X")
+          }
       }},100)
       
   }
 
+function setPlayer(playerTurn){
+  Player=playerTurn;
+  TurnPlayerGame.innerHTML =Player;
+}
+function ShowMessage(message){
+  WinnerMessage.classList.add("slideDown");
+  WinnerMessage.firstElementChild.innerHTML=message;
+}
 
 /*Play With Computer Using Algorithm MaxMin */
 function haveTheSameValueAndNotEmpty( x,  y,  z) {
@@ -87,10 +100,12 @@ function checkWinner(board) {
   // -2: O winner
   //  0: Tie
   //  1: No winner
-
+  var BoardWin=[[0,1,2],[3,4,5],[6,7,8]];
   // For rows
   for(let i = 0; i < 3; i++) {
       if(haveTheSameValueAndNotEmpty(board[i][0], board[i][1], board[i][2])) {
+        WinnerInfo.winnerlist=[(i*3)+(2-0),(i*3)+(2-1),(i*3)+(2-2)];
+        WinnerInfo.type="X";
         return board[i][0] == 'X' ? 2 : -2;
       }
   }
@@ -98,17 +113,23 @@ function checkWinner(board) {
   // For cols
   for(let i = 0; i < 3; i++) {
       if(haveTheSameValueAndNotEmpty(board[0][i], board[1][i], board[2][i])) {
+        WinnerInfo.winnerlist=[(0*3)+(2-i),(1*3)+(2-i),(2*3)+(2-i)];
+        WinnerInfo.type="Y";
           return board[0][i] == 'X' ? 2 : -2;
       }
   }
   
   // Diameter 1
   if(haveTheSameValueAndNotEmpty(board[0][0], board[1][1], board[2][2])) {
+    WinnerInfo.winnerlist=[0,4,8];
+      WinnerInfo.type="M";
       return board[0][0] == 'X' ? 2 : -2;
   }
 
   // Diameter 2
   if(haveTheSameValueAndNotEmpty(board[2][0], board[1][1], board[0][2])) {
+      WinnerInfo.winnerlist=[2,4,6];
+      WinnerInfo.type="Z";
       return board[2][0] == 'X' ? 2 : -2;
   }
 
@@ -145,9 +166,6 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
                     finalI = i;
                     finalJ = j;
                 }
-                if(firstTime) {
-                  console.log("Score"+i+" "+j+": "+score);
-                }
             }
         }   
     }
@@ -161,17 +179,17 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
           ele.firstElementChild.classList.add("Finish");
           TurnPlayerGame.innerHTML =Player;
           let result =checkWinner(board);
-        setTimeout(()=>{if(result==2){
-          WinnerMessage.classList.add("slideDown");
-          WinnerMessage.firstElementChild.innerHTML="You won!";
+        setTimeout(()=>{
+          if(result==2){
+            DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
+          ShowMessage("You won!")
           CounterX++;
         }else if(result==-2){
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           CounterO++;
           LostMessage.classList.add("slideDown");
-          
         }else if(result==0){
-          WinnerMessage.classList.add("slideDown");
-          WinnerMessage.firstElementChild.innerHTML="It's Draw!";
+          ShowMessage("It's Draw!")
           CounterD++;
         }},100)
         }
@@ -192,9 +210,6 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
                     finalI = i;
                     finalJ = j;
                 }
-                if(firstTime) {
-                console.log("Score"+i+" "+j+": "+score);
-                }
             }
         }   
     }
@@ -210,11 +225,13 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
             let result =checkWinner(board);
         setTimeout(()=>{
           if(result==2){
+            DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
             WinnerMessage.classList.add("slideDown");
             WinnerMessage.firstElementChild.innerHTML="You won!";
             CounterX++;
             Clear();
         }else if(result==-2){
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           CounterO++;
           LostMessage.classList.add("slideDown");
         }else if(result==0){
@@ -273,7 +290,6 @@ function RemoveTestPlayer(ele){
 
 /* Start Clear All game */
 function Clear(){
-Player="X";
 GameCounter=0;
 board=[[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
 if(LostMessage.classList.contains("slideDown")){
@@ -294,10 +310,12 @@ AllButton.forEach(function(ele){
     ele.firstElementChild.classList.remove("WinnerX");
     ele.firstElementChild.classList.remove("WinnerY");
     ele.firstElementChild.classList.remove("WinnerZ");
+    ele.firstElementChild.classList.remove("WinnerM");
 })
 }
 /* End Clear All game */
 function DrawWinner(WinnerList,val){
+  console.log(WinnerList,val);
 if(val=="X"){
   AllButton[WinnerList[0]].firstElementChild.classList.add("WinnerX");
   AllButton[WinnerList[1]].firstElementChild.classList.add("WinnerX");
@@ -310,7 +328,11 @@ if(val=="X"){
   AllButton[WinnerList[0]].firstElementChild.classList.add("WinnerZ");
   AllButton[WinnerList[1]].firstElementChild.classList.add("WinnerZ");
   AllButton[WinnerList[2]].firstElementChild.classList.add("WinnerZ");
-} 
+}else if(val=="M"){
+  AllButton[WinnerList[0]].firstElementChild.classList.add("WinnerM");
+  AllButton[WinnerList[1]].firstElementChild.classList.add("WinnerM");
+  AllButton[WinnerList[2]].firstElementChild.classList.add("WinnerM");
+}
 }
 
 /*Set Number Win*/
@@ -328,6 +350,7 @@ function SetNumberWin(){
 }
 /*Choice Mode Game*/
 function Choice(Num){
+  Player="X";
   if(Num==1){
     IsTwoPlayer=false;
     DifficultElement.classList.add("slideDown");
