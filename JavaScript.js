@@ -185,19 +185,23 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
           ele.firstElementChild.classList.add("Finish");
           TurnPlayerGame.innerHTML =Player;
           let result =checkWinner(board);
-        setTimeout(()=>{
+        
           if(result==2){
             DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
-          ShowMessage("You won!")
+            setTimeout(()=>{
+              ShowMessage("You won!")
+            },2500)
           CounterX++;
         }else if(result==-2){
           DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           CounterO++;
-          LostMessage.classList.add("slideDown");
+          setTimeout(()=>{
+            LostMessage.classList.add("slideDown");
+          },2500)
         }else if(result==0){
           ShowMessage("It's Draw!")
           CounterD++;
-        }},100)
+        }
         }
       })
   }
@@ -229,22 +233,26 @@ function MaxMin(board,Depth,isMaximizing,firstTime = true){
             ele.firstElementChild.classList.add("Finish");
             TurnPlayerGame.innerHTML =Player;
             let result =checkWinner(board);
-        setTimeout(()=>{
+        
           if(result==2){
             DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
+            setTimeout(()=>{
             WinnerMessage.classList.add("slideDown");
             WinnerMessage.firstElementChild.innerHTML="You won!";
             CounterX++;
             Clear();
+            },2500)
         }else if(result==-2){
           DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           CounterO++;
-          LostMessage.classList.add("slideDown");
+          setTimeout(()=>{
+            LostMessage.classList.add("slideDown");
+          },2500)
         }else if(result==0){
           alert("Draw");
           CounterD++;
           Clear();
-        }},100)
+        }
           }
         })
     }
