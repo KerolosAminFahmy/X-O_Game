@@ -118,48 +118,118 @@ body{
 .Game .bodyGame div:nth-of-type(8){
   border-right: 3px solid black;
 }
-
-.Game .bodyGame div p.WinnerX::before{
+.Game .bodyGame div p.WinnerX::before,
+.Game .bodyGame div p.WinnerY::before
+{
   content: "";
   height: 107%;
   width: 4px;
   background-color: blueviolet;
   position: absolute;
-  top:-6%;
-  left:50%;
-  transform: rotatez(90deg);
+  
 }
-
-.Game .bodyGame div p.WinnerY::before{
-  content: "";
-  height: 107%;
-  width: 4px;
-  background-color: blueviolet;
-  position: absolute;
-  top:0;
-  left:50%;
-}
-.Game .bodyGame div p.WinnerZ::before{
+.Game .bodyGame div p.WinnerZ::before,
+.Game .bodyGame div p.WinnerM::before{
   content: "";
   height: 148%;
   width: 4px;
   background-color: blueviolet;
   position: absolute;
-  top: -24px;
   left: 43px;
-  transform: rotateZ(44deg);
+  animation: colorChange 2s linear infinite,ShowLine 2s linear; 
 }
-.Game .bodyGame div p.WinnerM::before{
-  content: "";
-    height: 148%;
-    width: 4px;
-    background-color: blueviolet;
-    position: absolute;
-    top: -36px;
-    left: 43px;
-    transform: rotateZ(136deg);
+.Game .bodyGame div p.WinnerX::before{
+  top:-6%;
+  left:50%;
+  transform: rotatez(90deg);
+  animation: colorChange 2s linear infinite,ShowLineX 2s linear; 
 }
 
+.Game .bodyGame div p.WinnerY::before{
+  top:0;
+  left:50%;
+  animation: colorChange 2s linear infinite,ShowLine 2s linear; 
+}
+.Game .bodyGame div p.WinnerZ::before{
+  top: -24px;
+  transform: rotateZ(44deg);
+  animation: colorChange 2s linear infinite,ShowLineZ 2s linear; 
+}
+.Game .bodyGame div p.WinnerM::before{
+    top: -36px;
+    transform: rotateZ(136deg);
+    animation: colorChange 2s linear infinite,ShowLineM 2s linear; 
+}
+@keyframes colorChange {
+  0%{
+    box-shadow:-1px 4px 10px 3px #4fa7c3;
+  }
+  25%{
+    box-shadow:-1px 4px 10px 3px #2b7085;
+  }50%{
+    box-shadow:-1px 4px 10px 3px #4aad75;
+  }75%{
+    box-shadow:-1px 4px 10px 3px #84ad4a;
+  }100%{
+    box-shadow:-1px 4px 10px 3px #66b9d2;
+  }
+}
+@keyframes ShowLine{
+  0%{
+    opacity: 0;
+    transform: scale(0);
+  }
+  50%{
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes ShowLineX{
+  0%{
+    opacity: 0;
+    transform: scale(0) rotatez(90deg);
+  }
+  50%{
+    opacity: 0.5;
+    transform: scale(0.5) rotatez(90deg);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1) rotatez(90deg);
+  }
+}
+@keyframes ShowLineZ{
+  0%{
+    opacity: 0;
+    transform: scale(0) rotateZ(44deg);
+  }
+  50%{
+    opacity: 0.5;
+    transform: scale(0.5) rotateZ(44deg);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1) rotateZ(44deg);
+  }
+}
+@keyframes ShowLineM{
+  0%{
+    opacity: 0;
+    transform: scale(0) rotateZ(136deg);
+  }
+  50%{
+    opacity: 0.5;
+    transform: scale(0.5) rotateZ(136deg);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1) rotateZ(136deg);
+  }
+}
 .slideUp {
   opacity: 0;
     transform: scale(0);
