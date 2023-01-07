@@ -50,32 +50,38 @@ var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
         setPlayer("X");
       }
       let result =checkWinner(board);
-      setTimeout(()=>{
+      
         if(result==2){
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           canvas.classList.remove("InActive");
-          ShowMessage("Player With O won!")
           CounterX++;
           setPlayer("X");
-          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
+          setTimeout(()=>{
+          ShowMessage("Player With X won!")
+          },2500);
         }else if(result==-2){
+          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
           if(IsTwoPlayer){
             canvas.classList.remove("InActive");
           }
-          DrawWinner(WinnerInfo.winnerlist,WinnerInfo.type);
-          ShowMessage("Player With O won!")
           CounterO++;
           if(IsTwoPlayer){
             setPlayer("O")
           }else{
             setPlayer("X")
           }
+          setTimeout(()=>{
+            ShowMessage("Player With O won!")
+          },2500);
         }else if(result==0){
-          ShowMessage("It's Draw!");
+          setTimeout(()=>{
+            ShowMessage("It's Draw!");
+          },2500);
           CounterD++;
           if(IsTwoPlayer){
             setPlayer("X")
           }
-      }},100)
+        }
       
   }
 
