@@ -104,7 +104,7 @@ function checkWinner(board) {
   // For rows
   for(let i = 0; i < 3; i++) {
       if(haveTheSameValueAndNotEmpty(board[i][0], board[i][1], board[i][2])) {
-        WinnerInfo.winnerlist=[(i*3)+(2-0),(i*3)+(2-1),(i*3)+(2-2)];
+        WinnerInfo.winnerlist=[BoardWin[i][0],BoardWin[i][1],BoardWin[i][2]];
         WinnerInfo.type="X";
         return board[i][0] == 'X' ? 2 : -2;
       }
@@ -113,7 +113,7 @@ function checkWinner(board) {
   // For cols
   for(let i = 0; i < 3; i++) {
       if(haveTheSameValueAndNotEmpty(board[0][i], board[1][i], board[2][i])) {
-        WinnerInfo.winnerlist=[(0*3)+(2-i),(1*3)+(2-i),(2*3)+(2-i)];
+        WinnerInfo.winnerlist=[BoardWin[0][i],BoardWin[1][i],BoardWin[2][i]];
         WinnerInfo.type="Y";
           return board[0][i] == 'X' ? 2 : -2;
       }
