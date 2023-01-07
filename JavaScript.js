@@ -74,9 +74,9 @@ var board=[[' ',' ',' '],[' ',' ',' '],[' ',' ' ,' ']]
             ShowMessage("Player With O won!")
           },2500);
         }else if(result==0){
-          setTimeout(()=>{
+          
             ShowMessage("It's Draw!");
-          },2500);
+         
           CounterD++;
           if(IsTwoPlayer){
             setPlayer("X")
